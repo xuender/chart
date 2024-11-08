@@ -63,6 +63,8 @@ github.com/tdewolff/test v1.0.11-0.20240106005702-7de5f7df4739 h1:IkjBCtQOOjIn03
 github.com/tdewolff/test v1.0.11-0.20240106005702-7de5f7df4739/go.mod h1:XPuWBzvdUzhCuxWO1ojpXsyzsA5bFoS3tO/Q3kFuTG8=
 github.com/wcharczuk/go-chart/v2 v2.1.2 h1:Y17/oYNuXwZg6TFag06qe8sBajwwsuvPiJJXcUcLL6E=
 github.com/wcharczuk/go-chart/v2 v2.1.2/go.mod h1:Zi4hbaqlWpYajnXB2K22IUYVXRXaLfSGNNR7P4ukyyQ=
+github.com/xuender/flow v0.0.14 h1:/YNGD3QkUlJPhKgk/Ag0v5dCi06PvGx83XFKkW2LGlA=
+github.com/xuender/flow v0.0.14/go.mod h1:l37LNIJL8EzObXhpe5FA99OhLEy2U3eLKQLAjqa7xpI=
 github.com/xuender/kfont v1.0.2 h1:kUJYtq3vZ9PHoNfwuUusjpeS+jW40AcWCIF+/P9zhMo=
 github.com/xuender/kfont v1.0.2/go.mod h1:u6xJ1oanpI+QknzEDpjvg+2JA0AQ2c5488HK1HtZWf0=
 github.com/xuender/kit v1.0.52 h1:6TlBmxEBj9B4oKk4rCG1PDnZ6DBqKcXvIgguZO52mKI=

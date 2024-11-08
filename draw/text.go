@@ -7,7 +7,7 @@ func Text(ctx *canvas.Context, text string, face *canvas.FontFace, rect canvas.R
 	rich.WriteString(text)
 
 	ctx.DrawText(
-		rect.X, rect.Y,
+		rect.X, rect.Y+rect.H,
 		rich.ToText(rect.W, rect.H, canvas.Center, canvas.Center, 0.0, 0.0),
 	)
 }

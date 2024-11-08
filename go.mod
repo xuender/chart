@@ -2,9 +2,9 @@ module github.com/xuender/chart
 
 go 1.23
 
-
 require (
 	github.com/tdewolff/canvas v0.0.0-20241106210317-791afe353f9d
+	github.com/xuender/flow v0.0.14
 	github.com/xuender/kfont v1.0.2
 	github.com/xuender/kit v1.0.52
 )
