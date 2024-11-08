@@ -10,12 +10,11 @@ import (
 	"github.com/tdewolff/canvas"
 	"github.com/tdewolff/canvas/renderers"
 	"github.com/xuender/chart/draw"
-	"github.com/xuender/chart/fonts"
 )
 
 type Chart[V Number] struct {
 	Title  string
-	Fonts  *fonts.Fonts
+	Fonts  *Fonts
 	canvas *canvas.Canvas
 	ctx    *canvas.Context
 	data   map[string]iter.Seq2[int, V]
@@ -34,7 +33,7 @@ func New[V Number](width, height float64, options ...Option[V]) *Chart[V] {
 	chart := &Chart[V]{
 		canvas:      can,
 		ctx:         canvas.NewContext(can),
-		Fonts:       fonts.DefaultFonts,
+		Fonts:       DefaultFonts,
 		data:        make(map[string]iter.Seq2[int, V]),
 		Colors:      DefaultColors,
 		colors:      make(map[string]int),

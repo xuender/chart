@@ -6,9 +6,9 @@ import (
 	"github.com/tdewolff/canvas"
 )
 
-func Line(ctx *canvas.Context, colo color.Color, width float64, points []canvas.Point) {
-	ctx.SetStrokeColor(colo)
-	ctx.SetStrokeWidth(width)
+func Line(ctx *canvas.Context, strokeColor color.Color, strokeWidth float64, points []canvas.Point) {
+	ctx.SetStrokeColor(strokeColor)
+	ctx.SetStrokeWidth(strokeWidth)
 
 	for idx, point := range points {
 		if idx == 0 {

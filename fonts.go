@@ -1,15 +1,11 @@
-package fonts
+package chart
 
 import (
-	_ "embed"
-
 	"github.com/tdewolff/canvas"
+	"github.com/xuender/kfont/tsanger/ym"
 	"github.com/xuender/kit/los"
 	"github.com/xuender/kit/oss"
 )
-
-//go:embed CangErYuMoW02-2.ttf
-var _font []byte
 
 // nolint: gochecknoglobals
 var DefaultFonts = NewDefaultFonts()
@@ -30,7 +26,7 @@ func NewDefaultFonts() *Fonts {
 	fonts := NewFonts()
 
 	font := fonts.Font("default")
-	los.Must0(font.LoadFont(_font, 0, canvas.FontRegular))
+	los.Must0(font.LoadFont(ym.Bytes, 0, canvas.FontRegular))
 
 	return fonts
 }
