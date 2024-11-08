@@ -12,10 +12,13 @@ import (
 	"github.com/xuender/flow/seq"
 )
 
-func Lines[K cmp.Ordered, V Number](lines map[string]map[K]V) ([]K, map[string][]canvas.Point) {
-	keySeq := []iter.Seq[K]{}
-	for _, line := range lines {
-		keySeq = append(keySeq, maps.Keys(line))
+func Lines[K cmp.Ordered, V Number](lines []iter.Seq2[K, V]) ([]K, [][]canvas.Point) {
+	tmp := make([]map[K]V, len(lines))
+	keySeq := make([]iter.Seq[K], len(lines))
+
+	for idx, line := range lines {
+		tmp[idx] = maps.Collect(line)
+		keySeq[idx] = maps.Keys(tmp[idx])
 	}
 
 	keys := slices.Collect(flow.Chain(
@@ -24,10 +27,10 @@ func Lines[K cmp.Ordered, V Number](lines map[string]map[K]V) ([]K, map[string][
 		flow.Sort[K](),
 	))
 
-	points := map[string][]canvas.Point{}
+	points := make([][]canvas.Point, len(lines))
 
-	for name, line := range lines {
-		points[name] = toLine(keys, line)
+	for idx, line := range tmp {
+		points[idx] = toLine(keys, line)
 	}
 
 	return keys, points
@@ -46,12 +49,12 @@ func toLine[K cmp.Ordered, V Number](keys []K, line map[K]V) []canvas.Point {
 	return points
 }
 
-func LinesRect(data iter.Seq[[]canvas.Point]) canvas.Rect {
+func LinesRect(data [][]canvas.Point) canvas.Rect {
 	idxMin, idxMax := 0.0, 0.0
 	valMin := math.MaxFloat64
 	valMax := math.MaxFloat64 * -1
 
-	for items := range data {
+	for _, items := range data {
 		for _, item := range items {
 			if item.Y < valMin {
 				valMin = item.Y

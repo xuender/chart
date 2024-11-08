@@ -2,6 +2,7 @@ package chart
 
 import (
 	"cmp"
+	"image/color/palette"
 	"iter"
 
 	"github.com/tdewolff/canvas"
@@ -12,11 +13,14 @@ type Builder[K cmp.Ordered, V Number] struct {
 }
 
 func New[K cmp.Ordered, V Number]() *Builder[K, V] {
+	colorStep := 60
+
 	return &Builder[K, V]{
 		chart: &Chart[K, V]{
 			Fonts:       DefaultFonts,
-			data:        make(map[string]iter.Seq2[K, V]),
-			Colors:      DefaultColors,
+			legends:     []string{},
+			data:        []iter.Seq2[K, V]{},
+			Colors:      ShuffleSlice(palette.WebSafe[1:], colorStep),
 			colors:      make(map[string]int),
 			borderWidth: DefaultBorderWidth,
 			lineWidth:   DefaultLineWidth,

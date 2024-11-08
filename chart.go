@@ -6,7 +6,6 @@ import (
 	"image/color"
 	"iter"
 	"log/slog"
-	"maps"
 
 	"github.com/tdewolff/canvas"
 	"github.com/tdewolff/canvas/renderers"
@@ -14,14 +13,15 @@ import (
 )
 
 type Chart[K cmp.Ordered, V Number] struct {
-	Title  string
-	Fonts  *Fonts
-	canvas *canvas.Canvas
-	ctx    *canvas.Context
-	data   map[string]iter.Seq2[K, V]
-	Colors []color.RGBA
-	colors map[string]int
-	layout *Layout
+	Title   string
+	Fonts   *Fonts
+	canvas  *canvas.Canvas
+	ctx     *canvas.Context
+	legends []string
+	data    []iter.Seq2[K, V]
+	Colors  []color.Color
+	colors  map[string]int
+	layout  *Layout
 
 	width, height float64
 	displayBorder bool
@@ -63,16 +63,11 @@ func (p *Chart[K, V]) drawBorder() {
 }
 
 func (p *Chart[K, V]) drawData() {
-	lineMap := map[string]map[K]V{}
-	for name, data := range p.data {
-		lineMap[name] = maps.Collect(data)
-	}
-
-	keys, lines := Lines(lineMap)
+	keys, lines := Lines(p.data)
 
 	slog.Info("draw", "keys", keys)
 
-	rect := LinesRect(maps.Values(lines))
+	rect := LinesRect(lines)
 	rect.W = float64(len(keys) - 1)
 
 	slog.Info("rect", "rect", rectString(rect))
@@ -83,7 +78,7 @@ func (p *Chart[K, V]) drawData() {
 
 	slog.Info("data", "lines", lines)
 
-	for name, line := range lines {
+	for idx, line := range lines {
 		for idx, val := range line {
 			val.Y -= rect.Y
 			val.X *= idxRatio
@@ -93,7 +88,7 @@ func (p *Chart[K, V]) drawData() {
 			line[idx] = val
 		}
 
-		p.drawLine(name, line)
+		p.drawLine(p.legends[idx], line)
 	}
 
 	slog.Info("data", "lines", lines)
@@ -139,7 +134,8 @@ func (p *Chart[K, V]) drawDebug() {
 }
 
 func (p *Chart[K, V]) Column(name string, seq iter.Seq2[K, V]) {
-	p.data[name] = seq
+	p.legends = append(p.legends, name)
+	p.data = append(p.data, seq)
 }
 
 func (p *Chart[K, V]) WriteFile(file string) error {
