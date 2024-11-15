@@ -14,7 +14,7 @@ func main() {
 	ctx.SetFillColor(canvas.White)
 	ctx.DrawPath(0, 0, canvas.Rectangle(W, H))
 
-	cairo := tile.NewCairo()
+	cairo := tile.NewFloret()
 	clip := canvas.RoundedRectangle(10.0, 10.0, 2.0).Translate(3, 16)
 	cairo.Tile(ctx, clip)
 
@@ -23,12 +23,12 @@ func main() {
 	cairo.Tile(ctx, clip)
 
 	clip = canvas.RoundedRectangle(10.0, 10.0, 2.0).Translate(3, 3)
-	cairo.WithDensity(0.2).WithStrokeColor(canvas.Transparent)
+	cairo.WithColor(canvas.Red, canvas.Blue, canvas.Green)
 	cairo.Tile(ctx, clip)
 
 	clip = canvas.RoundedRectangle(10.0, 10.0, 2.0).Translate(16, 3)
-	cairo.WithColor(canvas.Red, canvas.Blue)
+	cairo.WithDensity(0.2).WithStrokeColor(canvas.Transparent)
 	cairo.Tile(ctx, clip)
 
-	renderers.Write("cairo.png", c, canvas.DPMM(20.0))
+	renderers.Write("floret.png", c, canvas.DPMM(20.0))
 }
