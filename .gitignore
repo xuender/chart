@@ -6,6 +6,7 @@
 .tmp
 *.jpg
 *.png
+*.svg
 *.tmp
 *.tmp.*
 *.sublime-project
